@@ -20,7 +20,10 @@ const types = {
     fighting: '#C25956',
     rock: '#B6A136',
     ghost: '#735797',
-    ice: '#96D9D6'
+    ice: '#96D9D6',
+    dark: '#705746',
+    steel: '#B7B7CE',
+	fairy: '#D685AD',
 };
 
 
@@ -96,6 +99,31 @@ function createCard(arr) {
         pokemonList.appendChild(card);
     }
 
+}
+
+// Infinite scroll
+window.addEventListener('scroll', () => {
+    const { scrollTop, scrollHeight, clientHeight } = document.documentElement;
+    // scrollTop = scroll since top
+    // scrollHeight = total scroll
+    // clientHeight = height of windows, visible part.
+
+    if (clientHeight + scrollTop >= scrollHeight - 20) {
+        addPoke(6);
+    }
+})
+
+let index = 21;
+
+function addPoke(nb) {
+    if (index > 300) {
+        return;
+    }
+
+    const arrToAdd = allPokemon.slice(index, index + nb);
+    console.log(index, index + nb);
+    createCard(arrToAdd);
+    index += nb;
 }
 
 // Input animation
