@@ -1,7 +1,28 @@
 const searchInput = document.querySelector('.searchPokemon input');
+const pokemonList = document.querySelector('.pokemonList')
 
 let allPokemon = [];
 let arrayEnd = [];
+
+const types = {
+    grass: '#78c850',
+    ground: '#E2BF65',
+    dragon: '#6F35FC',
+    fire: '#F58271',
+    electric: '#F7D02C',
+    fairy: '#D685AD',
+    poison: '#966DA3',
+    bug: '#B3F594',
+    water: '#6390F0',
+    normal: '#D9D5D8',
+    psychic: '#F95587',
+    flying: '#A98FF3',
+    fighting: '#C25956',
+    rock: '#B6A136',
+    ghost: '#735797',
+    ice: '#96D9D6'
+};
+
 
 // Fetch base of Pokemon with https://pokeapi.co/api/v2/pokemon/
 function fetchBasePokemon() {
@@ -13,7 +34,6 @@ function fetchBasePokemon() {
             allPoke.results.forEach((pokemon) => {
                 fetchCompletePokemon(pokemon);
             })
-
         })
 }
 
@@ -33,6 +53,7 @@ function fetchCompletePokemon(pokemon) {
             fullPokemonObject.type = pokeData.types[0].type.name;
             fullPokemonObject.id = pokeData.id;
 
+            // Fetch informations about a specific pokemon
             fetch(`https://pokeapi.co/api/v2/pokemon-species/${pokemonName}`)
                 .then(reponse => reponse.json())
                 .then((pokeData) => {
@@ -42,10 +63,39 @@ function fetchCompletePokemon(pokemon) {
                     allPokemon.push(fullPokemonObject);
 
                     if (allPokemon.length === 300) {
-                        console.log(allPokemon);
+                        // console.log(allPokemon);
+                        // Sort array by id
+                        arrayEnd = allPokemon.sort((a, b) => {
+                            return a.id - b.id;
+                        }).slice(0, 21);
+
+                        // Callback arrayEnd into function
+                        createCard(arrayEnd);
                     }
                 })
         })
+}
+
+// Create card and display it
+function createCard(arr) {
+    for (let i = 0; i < arr.length; i++) {
+        const card = document.createElement('li');
+        let couleur = types[arr[i].type];
+        card.style.background = couleur;
+        const txtCard = document.createElement('h5');
+        txtCard.innerText = arr[i].name;
+        const typeCard = document.createElement('p');
+        typeCard.innerText = `Type ${arr[i].type}`;
+        const imgCard = document.createElement('img');
+        imgCard.src = arr[i].pic;
+
+        card.appendChild(imgCard);
+        card.appendChild(txtCard);
+        card.appendChild(typeCard);
+
+        pokemonList.appendChild(card);
+    }
+
 }
 
 // Input animation
