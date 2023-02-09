@@ -23,7 +23,7 @@ const types = {
     ice: '#96D9D6',
     dark: '#705746',
     steel: '#B7B7CE',
-	fairy: '#D685AD',
+    fairy: '#D685AD',
 };
 
 
@@ -124,6 +124,30 @@ function addPoke(nb) {
     console.log(index, index + nb);
     createCard(arrToAdd);
     index += nb;
+}
+
+// Search
+searchInput.addEventListener('keyup', search);
+
+function search() {
+    if (index < 300) {
+        addPoke(299);
+    }
+
+    let filter, allLi, titleValue, allTitles;
+    filter = searchInput.value.toUpperCase();
+    allLi = document.querySelectorAll('li');
+    allTitles = document.querySelectorAll('li > h5');
+
+    for (i = 0; i < allLi.length; i++) {
+        titleValue = allTitles[i].innerText;
+
+        if (titleValue.toUpperCase().indexOf(filter) > -1) {
+            allLi[i].style.display = "flex";
+        } else {
+            allLi[i].style.display = "none";
+        }
+    }
 }
 
 // Input animation
