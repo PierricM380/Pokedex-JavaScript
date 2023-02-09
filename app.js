@@ -1,5 +1,6 @@
 const searchInput = document.querySelector('.searchPokemon input');
-const pokemonList = document.querySelector('.pokemonList')
+const pokemonList = document.querySelector('.pokemonList');
+const loading = document.querySelector('.loader');
 
 let allPokemon = [];
 let arrayEnd = [];
@@ -74,6 +75,8 @@ function fetchCompletePokemon(pokemon) {
 
                         // Callback arrayEnd into function
                         createCard(arrayEnd);
+                        // Stop loading animation when list is fetch
+                        loading.style.display = "none";
                     }
                 })
         })
