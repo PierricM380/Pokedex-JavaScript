@@ -14,15 +14,22 @@
 <body>
     <h1>Bienvenue sur le Pokedex</h1>
 
+    <!-- Input search -->
     <form class="searchPokemon">
         <label for="search">Chercher un pokémon</label>
         <input type="text" id="search">
+
+        <!-- Loader -->
+        <div class="loader">
+            <div class="point"></div>
+            <div class="point"></div>
+            <div class="point"></div>
+        </div>
     </form>
 
+    <!-- Display Pokemon cards -->
     <div class="container">
-        <ul class="pokemonList">
-
-        </ul>
+        <ul class="pokemonList"></ul>
     </div>
 
 
